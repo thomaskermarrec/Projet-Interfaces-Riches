@@ -1,0 +1,29 @@
+{
+  "Film": "https://ia801406.us.archive.org/32/items/Route_66_-_an_American_badDream/Route_66_-_an_American_badDream_512kb.mp4",
+  "Chapters": [
+    {
+      "pos": "0",
+      "title": "Intro"
+    },
+    {
+      "pos": "25000",
+      "title": "Title"
+    },
+    {
+      "pos": "80000",
+      "title": "Butterflies"
+    },
+    {
+      "pos": "120000",
+      "title": "Assault"
+    },
+    {
+      "pos": "240000",
+      "title": "Payback"
+    },
+    {
+      "pos": "488000",
+      "title": "Cast"
+    }
+  ]
+}
