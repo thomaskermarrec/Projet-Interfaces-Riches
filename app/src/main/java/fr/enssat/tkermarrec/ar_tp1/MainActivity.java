@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
@@ -29,18 +30,6 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String file_url;
-    private String title;
-    private String synopsis_url;
-
-    private VideoView myVideoView;
-    private MediaController mediaController;
-    private int position = 0;
-    private MapView myMapView;
-    JSONObject jObject;
-    JSONArray myChapters;
-    JSONArray myWaypoints;
-    JSONObject myFilmData;
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     private static final String JSON_LAT="lat";
     private static final String JSON_LNG="lng";
@@ -54,6 +43,22 @@ public class MainActivity extends AppCompatActivity {
     private static final String JSON_FILM="Film";
     private static final String JSON_CHAPTERS="Chapters";
     private static final String JSON_WAYPOINTS="Waypoints";
+
+    private String file_url;
+    private String title;
+    private String synopsis_url;
+    private JSONObject jObject;
+    private JSONArray myChapters;
+    private JSONArray myWaypoints;
+    private JSONObject myFilmData;
+    private int position = 0;
+
+    private VideoView myVideoView;
+    private MediaController mediaController;
+    private WebView myWebView;
+    private MapView myMapView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +110,16 @@ public class MainActivity extends AppCompatActivity {
         myMapView = findViewById(R.id.mapView);
         myMapView.onCreate(mapViewBundle);
 
-        //myVideoView.requestFocus();
         myVideoView.start();
+
+        /*myWebView = findViewById(R.id.webView);
+        try {
+            myWebView.loadUrl(synopsis_url);
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+            e.printStackTrace();
+        }*/
+
 
         try {
             initWaypoints();
@@ -250,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+
         });
     }
 
