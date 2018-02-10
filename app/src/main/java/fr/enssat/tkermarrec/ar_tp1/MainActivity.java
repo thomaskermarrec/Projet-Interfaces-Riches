@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private VideoView myVideoView;
     private MediaController mediaController;
-    private WebView myWebView;
+    //private WebView myWebView;
     private MapView myMapView;
 
 
@@ -110,7 +110,12 @@ public class MainActivity extends AppCompatActivity {
         myMapView = findViewById(R.id.mapView);
         myMapView.onCreate(mapViewBundle);
 
-        myVideoView.start();
+        myVideoView.requestFocus();
+        myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            public void onPrepared(MediaPlayer mp) {
+                myVideoView.start();
+            }
+        });
 
         /*myWebView = findViewById(R.id.webView);
         try {
@@ -127,32 +132,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
-
-        // When the video file ready for playback.
-        myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                myVideoView.seekTo(position);
-            if (position == 0) {
-                myVideoView.start();
-            }
-
-            // Quand la taille d'écran change
-            mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
-                @Override
-                public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-                    // Fait l'association avec la videoView
-                    mediaController.setAnchorView(myVideoView);
-                }
-            });
-            }
-        });
-
-        initMap();
     }
 
 
-    // Lit le fichier JSON contenant toutes les informations
-    // Convertit ce fichier sous la forme d'un JSONObject
     private void readJSON(){
         InputStream inputStream = getResources().openRawResource(R.raw.chapters);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -220,17 +202,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initWaypoints() {
+
+    private void initWaypoints(){
         try {
             myWaypoints = jObject.getJSONArray(JSON_WAYPOINTS);
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
-    }
 
-
-    private void initMap(){
         myMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
